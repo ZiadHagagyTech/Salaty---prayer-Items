@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مواقيت الصلاة | مواقيت الإسلام</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-mosque logo-img"></i>صلاتــي</div>
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fa-solid fa-home"></i> الرئيسية</a></li>
+      <li><a href="prayer.html" class="active"><i class="fa-solid fa-clock"></i> مواقيت الصلاة</a></li>
+      <li><a href="azkar.html"><i class="fa-solid fa-book-quran"></i> الأذكار</a></li>
+      <li><a href="sebha.html"><i class="fa-solid fa-bead"></i> المسبحة</a></li>
+    </ul>
+    <button id="toggle-theme" title="تبديل الوضع الليلي/النهاري"><i class="fa-solid fa-moon"></i></button>
+  </nav>
+  <main>
+    <section class="prayer-times-section">
+      <div class="page-header">
+        <h1><i class="fa-solid fa-clock"></i> مواقيت الصلاة في محافظات مصر</h1>
+        <p>اختر المحافظة لعرض مواقيت الصلاة اليوم حسب التوقيت المحلي.</p>
+      </div>
+      <div class="location-select">
+        <label for="province">اختَر المحافظة:</label>
+        <select id="province">
+          <option value="Cairo">القاهرة</option>
+          <option value="Alexandria">الإسكندرية</option>
+          <option value="Giza">الجيزة</option>
+          <option value="Port Said">بورسعيد</option>
+          <option value="Suez">السويس</option>
+          <option value="Dakahlia">الدقهلية</option>
+          <option value="Sharqia">الشرقية</option>
+          <option value="Kalyubia">القليوبية</option>
+          <option value="Kafr El Sheikh">كفر الشيخ</option>
+          <option value="Gharbia">الغربية</option>
+          <option value="Monufia">المنوفية</option>
+          <option value="Beheira">البحيرة</option>
+          <option value="Ismailia">الإسماعيلية</option>
+          <option value="Minya">المنيا</option>
+          <option value="Beni Suef">بني سويف</option>
+          <option value="Faiyum">الفيوم</option>
+          <option value="Assiut">أسيوط</option>
+          <option value="Sohag">سوهاج</option>
+          <option value="Qena">قنا</option>
+          <option value="Aswan">أسوان</option>
+          <option value="Luxor">الأقصر</option>
+          <option value="Red Sea">البحر الأحمر</option>
+          <option value="New Valley">الوادي الجديد</option>
+          <option value="Matrouh">مطروح</option>
+          <option value="North Sinai">شمال سيناء</option>
+          <option value="South Sinai">جنوب سيناء</option>
+        </select>
+        <button class="location-btn" id="use-location">
+          <i class="fa-solid fa-location-crosshairs"></i>
+          <span id="current-city-label">حسب موقعك الجغرافي</span>
+        </button>
+      </div>
+      <div id="prayer-loader" class="loader-section" style="display: none;">
+        <div class="loader"></div>
+        <span>جاري تحميل المواقيت ...</span>
+      </div>
+      <div id="prayer-times" class="prayer-times"></div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-content">
+  <span id="hijri-date"></span>
+  <small>جميع الحقوق محفوظة &copy; <span id="current-year"></span> زياد حجــاجي</small>
+</div>
+  </footer>
+  <nav class="bottom-nav">
+    <ul>
+      <li><a href="index.html"><i class="fa-solid fa-home"></i><span>الرئيسية</span></a></li>
+      <li><a href="prayer.html" class="active"><i class="fa-solid fa-clock"></i><span>الصلاة</span></a></li>
+      <li><a href="azkar.html"><i class="fa-solid fa-book-quran"></i><span>الأذكار</span></a></li>
+      <li><a href="sebha.html"><i class="fa-solid fa-circle-dot fa-3x"></i><span>المسبحة</span></a></li>
+    </ul>
+  </nav>
+  <script>
+    // الوضع الليلي/النهاري مع حفظ
+    const themeButton = document.getElementById('toggle-theme');
+    if (themeButton) {
+      themeButton.onclick = function() {
+        if (document.documentElement.getAttribute('data-theme') === 'dark') {
+          document.documentElement.removeAttribute('data-theme');
+          themeButton.innerHTML = '<i class="fa-solid fa-moon"></i>';
+          localStorage.setItem('site-theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          themeButton.innerHTML = '<i class="fa-solid fa-sun"></i>';
+          localStorage.setItem('site-theme', 'dark');
+        }
+      };
+      if (localStorage.getItem('site-theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeButton.innerHTML = '<i class="fa-solid fa-sun"></i>';
+      }
+    }
+    // تحديث السنة الحالية في الفوتر
+    document.querySelectorAll('#current-year').forEach(el => {
+      el.textContent = new Date().getFullYear();
+    });
+    // التقويم الهجري في الفوتر (حساب تقريبي)
+    function getHijriDate() {
+      const today = new Date();
+      const hijri = new Intl.DateTimeFormat('ar-TN-u-ca-islamic', {day:'numeric', month:'long', year:'numeric'}).format(today);
+      return hijri.replace('هـ', '').trim() + " هـ";
+    }
+    document.querySelectorAll('#hijri-date').forEach(el => {
+      el.textContent = getHijriDate();
+    });
+
+    // أيقونات المواقيت
+    const prayerIcons = {
+  fajr: "fa-cloud-moon",
+  sunrise: "fa-sun",
+  dhuhr: "fa-sun",         // تم التعديل هنا
+  asr: "fa-cloud-sun",
+  maghrib: "fa-moon",      // تم التعديل هنا
+  isha: "fa-cloud-moon-rain"
+};
+
+    // خريطة تحويل اسم المحافظة العربي/الإنجليزي كما في الـ select
+    const governorateMap = {
+      "القاهرة": "Cairo",
+      "الإسكندرية": "Alexandria",
+      "الجيزة": "Giza",
+      "بورسعيد": "Port Said",
+      "السويس": "Suez",
+      "الدقهلية": "Dakahlia",
+      "الشرقية": "Sharqia",
+      "القليوبية": "Kalyubia",
+      "كفر الشيخ": "Kafr El Sheikh",
+      "الغربية": "Gharbia",
+      "المنوفية": "Monufia",
+      "البحيرة": "Beheira",
+      "الإسماعيلية": "Ismailia",
+      "المنيا": "Minya",
+      "بني سويف": "Beni Suef",
+      "الفيوم": "Faiyum",
+      "أسيوط": "Assiut",
+      "سوهاج": "Sohag",
+      "قنا": "Qena",
+      "أسوان": "Aswan",
+      "الأقصر": "Luxor",
+      "البحر الأحمر": "Red Sea",
+      "الوادي الجديد": "New Valley",
+      "مطروح": "Matrouh",
+      "شمال سيناء": "North Sinai",
+      "جنوب سيناء": "South Sinai"
+    };
+
+    // نفس الخريطة لكن بالعكس (للمطابقة لو جاء الاسم إنجليزي من Nominatim)
+    const governorateMapReversed = {};
+    Object.keys(governorateMap).forEach(ar => {
+      governorateMapReversed[governorateMap[ar].toLowerCase()] = governorateMap[ar];
+      governorateMapReversed[ar] = governorateMap[ar];
+    });
+
+    // --- الدالة الجديدة لتحويل الوقت من 24 إلى 12 ساعة مع ص/م ---
+    function formatTime12Hour(time24) {
+      if (!time24) return "";
+      let [h, m] = time24.split(':');
+      h = parseInt(h, 10);
+      let suffix = (h < 12) ? 'ص' : 'م';
+      let hour12 = h % 12;
+      if (hour12 === 0) hour12 = 12;
+      // إزالة الأصفار الزائدة من البداية (مثال: 08:05 تصبح 8:05)
+      return hour12 + ':' + m + ' ' + suffix;
+    }
+
+    function renderPrayerTimes(times) {
+      const ptDiv = document.getElementById('prayer-times');
+      ptDiv.innerHTML = '';
+      if (!times) { 
+        ptDiv.innerHTML = '<p>لا توجد بيانات.</p>'; 
+        return; 
+      }
+      const prayers = [
+        {label: "الفجر", name: 'fajr'},
+        {label: "الشروق", name: 'sunrise'},
+        {label: "الظهر", name: 'dhuhr'},
+        {label: "العصر", name: 'asr'},
+        {label: "المغرب", name: 'maghrib'},
+        {label: "العشاء", name: 'isha'},
+      ];
+      prayers.forEach(pr => {
+        ptDiv.innerHTML += `
+          <div class="prayer-item">
+            <i class="fa-solid ${prayerIcons[pr.name]}" style="display:block;margin-bottom:3px"></i>
+            <div>${pr.label}</div>
+            <span>${formatTime12Hour(times[pr.name])}</span>
+          </div>
+        `;
+      });
+    }
+
+    async function fetchPrayerTimesByCity(city) {
+      document.getElementById('prayer-loader').style.display = 'flex';
+      document.getElementById('prayer-times').innerHTML = '';
+      try {
+        const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=EG&method=5&lang=ar`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.code === 200) {
+          renderPrayerTimes({
+            fajr: data.data.timings.Fajr,
+            sunrise: data.data.timings.Sunrise,
+            dhuhr: data.data.timings.Dhuhr,
+            asr: data.data.timings.Asr,
+            maghrib: data.data.timings.Maghrib,
+            isha: data.data.timings.Isha
+          });
+        } else {
+          renderPrayerTimes(null);
+        }
+      } catch {
+        renderPrayerTimes(null);
+      }
+      document.getElementById('prayer-loader').style.display = 'none';
+    }
+
+    async function fetchPrayerTimesByCoords(lat, lng) {
+      document.getElementById('prayer-loader').style.display = 'flex';
+      document.getElementById('prayer-times').innerHTML = '';
+      let governorate = '';
+      try {
+        const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=ar`);
+        const geoData = await geoRes.json();
+        governorate = geoData.address.state || '';
+        let selectValue = null;
+
+        if (governorateMap[governorate]) {
+          selectValue = governorateMap[governorate];
+        } else {
+          if (governorateMapReversed[governorate.toLowerCase()]) {
+            selectValue = governorateMapReversed[governorate.toLowerCase()];
+          } else {
+            Object.keys(governorateMap).forEach(ar => {
+              if (governorate.includes(ar)) selectValue = governorateMap[ar];
+            });
+          }
+        }
+
+        if (selectValue) {
+          document.getElementById('province').value = selectValue;
+          document.getElementById('current-city-label').textContent = `محافظتك الحالية: ${governorate}`;
+          await fetchPrayerTimesByCity(selectValue);
+          document.getElementById('prayer-loader').style.display = 'none';
+          return;
+        } else if (governorate) {
+          document.getElementById('current-city-label').textContent = `محافظتك الحالية: ${governorate}`;
+        } else {
+          document.getElementById('current-city-label').textContent = `محافظتك الحالية`;
+        }
+      } catch {
+        document.getElementById('current-city-label').textContent = "محافظتك الحالية";
+      }
+      try {
+        const today = new Date();
+        const url = `https://api.aladhan.com/v1/timings/${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}?latitude=${lat}&longitude=${lng}&method=5&lang=ar`;
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.code === 200) {
+          renderPrayerTimes({
+            fajr: data.data.timings.Fajr,
+            sunrise: data.data.timings.Sunrise,
+            dhuhr: data.data.timings.Dhuhr,
+            asr: data.data.timings.Asr,
+            maghrib: data.data.timings.Maghrib,
+            isha: data.data.timings.Isha
+          });
+        } else {
+          renderPrayerTimes(null);
+        }
+      } catch {
+        renderPrayerTimes(null);
+      }
+      document.getElementById('prayer-loader').style.display = 'none';
+    }
+
+    document.getElementById('province').onchange = function(e) {
+      document.getElementById('current-city-label').textContent = "حسب موقعك الجغرافي";
+      fetchPrayerTimesByCity(e.target.value);
+    };
+
+    document.getElementById('use-location').onclick = function() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(pos => {
+          fetchPrayerTimesByCoords(
+            pos.coords.latitude,
+            pos.coords.longitude
+          );
+        }, () => {
+          alert('تعذر الحصول على الموقع الجغرافي.');
+        });
+      } else {
+        alert('المتصفح لا يدعم الموقع الجغرافي.');
+      }
+    };
+
+    window.onload = function() {
+      fetchPrayerTimesByCity(document.getElementById('province').value);
+    };
+
+
+
+
+    // تعطيل الزر الأيمن
+document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+    });
+
+    // تعطيل اختصارات F12 و Ctrl+Shift+I و Ctrl+Shift+J و Ctrl+U
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "F12" || 
+            (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) || 
+            (e.ctrlKey && e.key === "U")) {
+            e.preventDefault();
+        }
+    });
+  </script>
+</body>
+</html>

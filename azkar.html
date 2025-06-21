@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الأذكار | مواقيت الإسلام</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-mosque logo-img"></i>صلاتــي</div>
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fa-solid fa-home"></i> الرئيسية</a></li>
+      <li><a href="prayer.html"><i class="fa-solid fa-clock"></i> مواقيت الصلاة</a></li>
+      <li><a href="azkar.html" class="active"><i class="fa-solid fa-book-quran"></i> الأذكار</a></li>
+      <li><a href="sebha.html"><i class="fa-solid fa-bead"></i> المسبحة</a></li>
+    </ul>
+    <button id="toggle-theme" title="تبديل الوضع الليلي/النهاري"><i class="fa-solid fa-moon"></i></button>
+  </nav>
+  <main>
+    <section class="page-header">
+      <h1><i class="fa-solid fa-book-quran"></i> الأذكار اليومية</h1>
+      <p>مجموعة ضخمة من الأذكار الصباحية، المسائية، أذكار بعد الصلاة، وغيرها.</p>
+      <div class="azkar-tabs">
+        <button class="azkar-tab active" data-type="morning"><i class="fa-solid fa-sun"></i> أذكار الصباح</button>
+        <button class="azkar-tab" data-type="evening"><i class="fa-solid fa-moon"></i> أذكار المساء</button>
+        <button class="azkar-tab" data-type="prayer"><i class="fa-solid fa-hand-holding-water"></i> أذكار بعد الصلاة</button>
+        <button class="azkar-tab" data-type="other"><i class="fa-solid fa-star"></i> أذكار متنوعة</button>
+      </div>
+    </section>
+    <section class="azkar-section">
+      <div id="azkar-list" class="azkar-list"></div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-content">
+  <span id="hijri-date"></span>
+  <small>جميع الحقوق محفوظة &copy; <span id="current-year"></span> زياد حجــاجي</small>
+</div>
+  </footer>
+  <nav class="bottom-nav">
+  <ul>
+    <li><a href="index.html"><i class="fa-solid fa-home"></i><span>الرئيسية</span></a></li>
+    <li><a href="prayer.html"><i class="fa-solid fa-clock"></i><span>الصلاة</span></a></li>
+    <li><a href="azkar.html" class="active"><i class="fa-solid fa-book-quran"></i><span>الأذكار</span></a></li>
+    <li><a href="sebha.html"><i class="fa-solid fa-circle-dot fa-3x"></i><span>المسبحة</span></a></li>
+  </ul>
+</nav>
+  <script src="script.js"></script>
+</body>
+</html>

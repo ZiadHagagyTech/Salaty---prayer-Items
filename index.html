@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الرئيسية | مواقيت الإسلام</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-mosque logo-img"></i>صلاتــي</div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active"><i class="fa-solid fa-home"></i> الرئيسية</a></li>
+      <li><a href="prayer.html"><i class="fa-solid fa-clock"></i> مواقيت الصلاة</a></li>
+      <li><a href="azkar.html"><i class="fa-solid fa-book-quran"></i> الأذكار</a></li>
+      <li><a href="sebha.html"><i class="fa-solid fa-bead"></i> المسبحة</a></li>
+    </ul>
+    <button id="toggle-theme" title="تبديل الوضع الليلي/النهاري"><i class="fa-solid fa-moon"></i></button>
+  </nav>
+  <main class="home-main">
+    <section class="hero">
+      <div class="hero-content">
+        <h1>
+          <span class="hero-icon"><i class="fa-solid fa-star-and-crescent"></i></span>
+          مرحبًا بك في
+          <span class="gradient-text">صلاتـــي</span>
+        </h1>
+        <p>
+          منصة إسلامية متكاملة تجمع لك مواقيت الصلاة حسب موقعك، الأذكار اليومية بتنوع هائل، ومسبحة إلكترونية عصرية تحفظ أذكارك وتاريخ تسبيحاتك.<br>
+          واجهة عصرية، متجاوبة، جميلة وسهلة الاستخدام.
+        </p>
+        <div class="hero-btns">
+          <a href="prayer.html" class="hero-btn"><i class="fa-solid fa-clock"></i> مواقيت الصلاة</a>
+          <a href="azkar.html" class="hero-btn"><i class="fa-solid fa-book-quran"></i> الأذكار</a>
+          <a href="sebha.html" class="hero-btn"><i class="fa-solid fa-bead"></i> المسبحة</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <i class="fa-solid fa-moon fa-bounce"></i>
+        <i class="fa-solid fa-mosque fa-flip"></i>
+        <i class="fa-solid fa-star fa-spin"></i>
+      </div>
+    </section>
+    <section class="features">
+      <h2><i class="fa-solid fa-circle-check"></i> أبرز المميزات</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fa-solid fa-location-crosshairs fa-2x"></i>
+          <h3>مواقيت دقيقة بموقعك</h3>
+          <p>احسب مواقيت الصلاة بدقة تلقائيًا أينما كنت.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fa-solid fa-book-quran fa-2x"></i>
+          <h3>أذكار شاملة</h3>
+          <p>قائمة ضخمة من الأذكار الصباحية، المسائية، أذكار بعد الصلاة، وغيرها.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fa-solid fa-bead fa-2x"></i>
+          <h3>مسبحة إلكترونية ذكية</h3>
+          <p>عداد لكل نوع ذكر مع حفظ التاريخ والإحصائيات.</p>
+        </div>
+        <div class="feature-card">
+          <i class="fa-solid fa-moon fa-2x"></i>
+          <h3>وضع ليلي مريح</h3>
+          <p>تبديل فوري بين النهاري والليلي، مريح للعينين.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-content">
+  <span id="hijri-date"></span>
+  <small>جميع الحقوق محفوظة &copy; <span id="current-year"></span> زياد حجــاجي</small>
+</div>
+  </footer>
+  <nav class="bottom-nav">
+    <ul>
+      <li><a href="index.html" class="active"><i class="fa-solid fa-home"></i><span>الرئيسية</span></a></li>
+      <li><a href="prayer.html"><i class="fa-solid fa-clock"></i><span>الصلاة</span></a></li>
+      <li><a href="azkar.html"><i class="fa-solid fa-book-quran"></i><span>الأذكار</span></a></li>
+      <li><a href="sebha.html"><i class="fa-solid fa-circle-dot fa-3x"></i><span>المسبحة</span></a></li>
+    </ul>
+  </nav>
+  <script src="script.js"></script>
+</body>
+</html>

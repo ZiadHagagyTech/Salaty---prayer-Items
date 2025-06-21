@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المسبحة | مواقيت الإسلام</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-mosque logo-img"></i>صلاتــي</div>
+    <ul class="nav-links">
+      <li><a href="index.html"><i class="fa-solid fa-home"></i> الرئيسية</a></li>
+      <li><a href="prayer.html"><i class="fa-solid fa-clock"></i> مواقيت الصلاة</a></li>
+      <li><a href="azkar.html"><i class="fa-solid fa-book-quran"></i> الأذكار</a></li>
+      <li><a href="sebha.html" class="active"><i class="fa-solid fa-bead"></i> المسبحة</a></li>
+    </ul>
+    <button id="toggle-theme" title="تبديل الوضع الليلي/النهاري"><i class="fa-solid fa-moon"></i></button>
+  </nav>
+  <main>
+    <section class="page-header">
+      <h1><i class="fa-solid fa-bead"></i> المسبحة الإلكترونية</h1>
+      <p>عدد تسبيحاتك واحفظها تلقائيًا في جدول لكل ذكر مع الإحصائيات.</p>
+    </section>
+    <section class="sebha-section">
+      <div class="sebha-controls">
+        <select id="sebha-dhikr">
+          <option value="سبحان الله">سبحان الله</option>
+          <option value="الحمد لله">الحمد لله</option>
+          <option value="الله أكبر">الله أكبر</option>
+          <option value="لا إله إلا الله">لا إله إلا الله</option>
+          <option value="لا حول ولا قوة إلا بالله">لا حول ولا قوة إلا بالله</option>
+        </select>
+        <button id="sebha-reset" title="إعادة العد"><i class="fa-solid fa-arrows-rotate"></i></button>
+      </div>
+      <div class="sebha-container">
+        <span class="bead-ring">
+          <i class="fa-solid fa-bead fa-3x"></i>
+          <span id="sebha-count">0</span>
+        </span>
+        <button id="sebha-btn" class="sebha-main-btn"><i class="fa-solid fa-fingerprint"></i> سبّح</button>
+      </div>
+      <div class="sebha-table-section">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:0.8rem">
+          <h3 style="margin:0"><i class="fa-solid fa-table-cells-large"></i> جدول الإحصائيات</h3>
+          <button id="sebha-clear-all" class="sebha-clear-btn" title="مسح جميع الجدول" style="background: var(--main); color:#fff; border:none; border-radius:8px; padding:0.4em 1.1em; cursor:pointer; font-size:0.97em; display:flex;align-items:center;gap:0.5em;"><i class="fa-solid fa-trash"></i> مسح الكل</button>
+        </div>
+        <table class="sebha-table">
+          <thead>
+            <tr>
+              <th>الذكر</th>
+              <th>العدد</th>
+              <th>آخر مرة</th>
+            </tr>
+          </thead>
+          <tbody id="sebha-stats"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-content">
+  <span id="hijri-date"></span>
+  <small>جميع الحقوق محفوظة &copy; <span id="current-year"></span> زياد حجــاجي</small>
+</div>
+  </footer>
+  <nav class="bottom-nav">
+  <ul>
+    <li><a href="index.html"><i class="fa-solid fa-home"></i><span>الرئيسية</span></a></li>
+    <li><a href="prayer.html"><i class="fa-solid fa-clock"></i><span>الصلاة</span></a></li>
+    <li><a href="azkar.html"><i class="fa-solid fa-book-quran"></i><span>الأذكار</span></a></li>
+    <li><a href="sebha.html" class="active"><i class="fa-solid fa-circle-dot fa-3x"></i><span>المسبحة</span></a></li>
+  </ul>
+</nav>
+  <script src="script.js"></script>
+</body>
+</html>
